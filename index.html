@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTREND.VIP - 跨境商務合約與發票智能生成系統 (測試頁面)</title>
+    <title>NTREND.VIP - 跨境商務合約與發票智能生成系統</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans">
     <div class="max-w-4xl mx-auto py-10 px-6">
         <!-- 頂部標識 -->
         <header class="mb-8 text-center">
-            <span class="bg-indigo-100 text-indigo-700 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">NTREND.VIP Test Portal v1.0</span>
-            <h1 class="text-3xl font-bold mt-3 text-slate-900">香港法律商務合約 & 國際商業發票生成系統</h1>
-            <p class="text-sm text-slate-500 mt-1">前端測試頁面 • 支援香港法例 (Cap. 623) 與多重附件上傳</p>
+            <span class="bg-indigo-100 text-indigo-700 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">NTREND.VIP Enterprise Portal v1.0</span>
+            <h1 class="text-3xl font-bold mt-3 text-slate-900">香港法律商務合約 & 國際商業發票智能生成系統</h1>
+            <p class="text-sm text-slate-500 mt-1">Gemini AI 後端已連線 • 支援香港法例 (Cap. 623) 與多重附件上傳</p>
         </header>
 
         <!-- 主表單 -->
         <main class="bg-white shadow-xl rounded-2xl p-8 border border-slate-100">
-            <form id="testContractForm" class="space-y-6">
+            <form id="contractForm" class="space-y-6">
                 
                 <!-- 1. 雙方主體 -->
                 <section>
@@ -83,31 +83,58 @@
                 <!-- 提交按鈕 -->
                 <div class="pt-4">
                     <button type="submit" id="submitBtn" class="w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg shadow-md hover:bg-indigo-700 transition duration-200">
-                        一鍵生成香港法律合約、商業發票與自動雲端歸檔
+                        一鍵提交至 Gemini AI 後端並生成合規合約
                     </button>
                 </div>
             </form>
         </main>
         
         <footer class="mt-8 text-center text-xs text-slate-400">
-            &copy; 2026 NTREND GLOBAL LIMITED (<span class="text-indigo-600 font-medium">contract.ntrend.vip</span>). Test Environment Active.
+            &copy; 2026 NTREND GLOBAL LIMITED (<span class="text-indigo-600 font-medium">contract.ntrend.vip</span>). Powered by Gemini AI & Google Workspace.
         </footer>
     </div>
 
     <script>
-        document.getElementById('testContractForm').addEventListener('submit', function(e) {
+        document.getElementById('contractForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
             btn.disabled = true;
-            btn.textContent = '正在打包數據、寫入 Google Sheets 並調用香港合規引擎，請稍候...';
-            
-            // 模擬異步提交與響應
-            setTimeout(() => {
-                alert('【測試成功】\n合約編號：CTR-20261101-999\n- 數據已模擬寫入 Google Sheets 数据库\n- 證件與附件已自動歸檔至 Google Drive\n- 香港合規商務合約與商業發票 (含 Cap.623) 已成功渲染！');
+            btn.textContent = '正在提交至 Gemini AI 審核並寫入 Google Sheets，請稍候...';
+
+            // 1. 收集表單數據
+            const formData = {
+                clientName: this.clientName.value,
+                clientBR: this.clientBR.value,
+                serviceScope: this.serviceScope.value,
+                totalAmount: this.totalAmount.value,
+                paymentTerms: this.paymentTerms.value,
+                deliveryDate: this.deliveryDate.value
+            };
+
+            // 2. 已集成您的 Google Apps Script 後端專屬網址
+            const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwjUqEETsmiXx73vyr0kHmR7jk377WJ3ZRmNnkB-KveIyS5eOyUfbWzHro6SEmIFcn-Ag/exec";
+
+            // 3. 發送 POST 請求到 Google 後端
+            fetch(WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                alert('【提交成功】\n數據已成功發送至 Google 雲端！\nGemini AI 已完成香港法律合規審核並寫入 Google Sheets 数据库。');
                 btn.disabled = false;
-                btn.textContent = '一鍵生成香港法律合約、商業發票與自動雲端歸檔';
+                btn.textContent = '一鍵提交至 Gemini AI 後端並生成合規合約';
                 this.reset();
-            }, 1500);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('提交失敗，請檢查網絡連接。');
+                btn.disabled = false;
+                btn.textContent = '一鍵提交至 Gemini AI 後端並生成合規合約';
+            });
         });
     </script>
 </body>

@@ -1,1 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTREND.VIP - 跨境商務合約與發票智能生成系統 (測試頁面)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans">
+    <div class="max-w-4xl mx-auto py-10 px-6">
+        <!-- 頂部標識 -->
+        <header class="mb-8 text-center">
+            <span class="bg-indigo-100 text-indigo-700 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">NTREND.VIP Test Portal v1.0</span>
+            <h1 class="text-3xl font-bold mt-3 text-slate-900">香港法律商務合約 & 國際商業發票生成系統</h1>
+            <p class="text-sm text-slate-500 mt-1">前端測試頁面 • 支援香港法例 (Cap. 623) 與多重附件上傳</p>
+        </header>
 
+        <!-- 主表單 -->
+        <main class="bg-white shadow-xl rounded-2xl p-8 border border-slate-100">
+            <form id="testContractForm" class="space-y-6">
+                
+                <!-- 1. 雙方主體 -->
+                <section>
+                    <h2 class="text-lg font-semibold text-slate-800 border-b pb-2 mb-4">1. 雙方法定主體與證件信息</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700">乙方（服務提供方 / 收款方）全稱</label>
+                            <input type="text" name="providerName" value="NTREND GLOBAL LIMITED" required class="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm bg-slate-50">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700">乙方香港商業登記號 (BR No.)</label>
+                            <input type="text" name="providerBR" value="88288888" required class="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm bg-slate-50">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700">甲方（客戶方）法定全稱</label>
+                            <input type="text" name="clientName" required class="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm" placeholder="例如：大湾区科技（香港）有限公司">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700">甲方註冊證件號 (香港BR / 海外註冊號)</label>
+                            <input type="text" name="clientBR" required class="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm" placeholder="輸入8位香港BR或海外編號">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. 服務範圍與費用 -->
+                <section>
+                    <h2 class="text-lg font-semibold text-slate-800 border-b pb-2 mb-4">2. 服務範圍、交付時間與費用結算</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="md:col-span-3">
+                            <label class="block text-sm font-medium text-slate-700">服務項目與交付內容概述</label>
+                            <textarea name="serviceScope" rows="3" required class="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm" placeholder="詳細描述諮詢、IT開發或跨境出海戰略服務範圍..."></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700">合約總金額 (預設幣種 HKD)</label>
+                            <input type="number" name="totalAmount" required class="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm" placeholder="例如：150000">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700">分期付款節點</label>
+                            <input type="text" name="paymentTerms" required class="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm" placeholder="例如：首付50%，驗收付50%">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700">預計交付服務時間</label>
+                            <input type="date" name="deliveryDate" required class="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. 附件上傳 -->
+                <section>
+                    <h2 class="text-lg font-semibold text-slate-800 border-b pb-2 mb-4">3. 必備證件與合約附件掛載</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700">上傳雙方商業登記證 (BR / SO 掃描件)</label>
+                            <input type="file" name="brCertificates" multiple required class="mt-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700">上傳技術文檔 / 服務規範 (自動編為 【附件一】、【附件二】...)</label>
+                            <input type="file" name="contractAnnexes" multiple class="mt-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 提交按鈕 -->
+                <div class="pt-4">
+                    <button type="submit" id="submitBtn" class="w-full bg-indigo-600 text-white font-medium py-3 px-4 rounded-lg shadow-md hover:bg-indigo-700 transition duration-200">
+                        一鍵生成香港法律合約、商業發票與自動雲端歸檔
+                    </button>
+                </div>
+            </form>
+        </main>
+        
+        <footer class="mt-8 text-center text-xs text-slate-400">
+            &copy; 2026 NTREND GLOBAL LIMITED (<span class="text-indigo-600 font-medium">contract.ntrend.vip</span>). Test Environment Active.
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('testContractForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.textContent = '正在打包數據、寫入 Google Sheets 並調用香港合規引擎，請稍候...';
+            
+            // 模擬異步提交與響應
+            setTimeout(() => {
+                alert('【測試成功】\n合約編號：CTR-20261101-999\n- 數據已模擬寫入 Google Sheets 数据库\n- 證件與附件已自動歸檔至 Google Drive\n- 香港合規商務合約與商業發票 (含 Cap.623) 已成功渲染！');
+                btn.disabled = false;
+                btn.textContent = '一鍵生成香港法律合約、商業發票與自動雲端歸檔';
+                this.reset();
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
